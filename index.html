@@ -1,3 +1,93 @@
+<?php
+//Contact form stuff
+    function test_input($data)
+	{
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
+	}
+	
+	if(isset($_POST['submit'])):
+	if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])):
+	$secret = 'YOUR SECRET KEY GOES HERE';
+	$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+	$responseData = json_decode($verifyResponse);
+	$contact_name = !empty($_POST['contact_name'])?$_POST['contact_name']:'';
+	$contact_name = test_input($contact_name);
+	$email = !empty($_POST['email'])?$_POST['email']:'';
+	$email = test_input($email);
+	$tel_no = !empty($_POST['tel_no'])?$_POST['tel_no']:'';
+	$tel_no = test_input($tel_no);
+	$con_website = !empty($_POST['con_website'])?$_POST['con_website']:'';
+	$con_website = test_input($con_website);
+	$message = !empty($_POST['message'])?$_POST['message']:'';
+	//Make sure the email address is valid
+	if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)):
+	$email = $email;
+	if($responseData->success):
+	//contact form submission code
+	$to = "YOUR EMAIL ADDRESS HERE";
+	$subject = "Contact form submission from ".$contact_name."";
+	$htmlContent = "
+		<p><b>Name: </b>".$contact_name."</p>
+		<p><b>Email Address: </b>".$email."</p>
+		<p><b>Phone Number: </b>".$tel_no."</p>
+		<p><b>Website Address: </b>".$con_website."</p>
+		<p><b>Message: </b>".$message."</p>";
+	//Set the content type for sending HTML email
+	$headers = "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+	$headers .= 'From:'.$contact_name.' <'.$email.'>' . "\r\n";
+	//Send the message
+	@mail($to, $subject,$htmlContent,$headers);
+	$succMsg = '
+				<div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					Your message has been sent.  Someone will be in touch shortly.
+				</div>
+			';
+	$contact_name = '' ;
+	$email = '' ;
+	$tel_no = '' ;
+	$con_website = '' ;
+	$message = '' ;
+	else: 
+		$errMsg = '
+					<div class="alert alert-danger alert-dismissible" role="alert">
+            			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            			Captcha failed, please try again.
+            		</div>
+            	';
+	endif;
+	else: 
+		$errMsg = '
+					<div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						There is a problem with your email address, please check and re-type.
+					</div>
+				';
+	endif;
+	else: 
+		//Re-display content if error
+		$contact_name = $_POST['contact_name']; 
+		$email = $_POST['email'];
+		$tel_no = $_POST['tel_no'];
+		$con_website = $_POST['con_website'];
+		$message = $_POST['message'];
+		$errMsg = 'Please click on the reCaptcha "I\'m not a robot" box.';
+	endif;
+	else: 
+		$errMsg = '';
+		$succMsg = '';
+		$contact_name = '';
+		$email = '';
+		$tel_no = '';
+		$con_website = '';
+		$message = '';
+	endif;
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -85,7 +175,7 @@
 
 								<div class="form-group">
 									<div class="col-md-8 col-md-offset-2 input-group">
-										<div class="g-recaptcha" data-sitekey="6LdEBgkUAAAAAAaALRq8v-vmRW5yH3FaK5f99sT1"></div>
+										<div class="g-recaptcha" data-sitekey="YOUR SITE KEY GOES HERE"></div>
 									</div><!-- closes input-group -->
 								</div><!-- closes form-group -->
 
