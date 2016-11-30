@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>365-Tech</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- link the stylesheets -->
+        <link rel="stylesheet" href="style.css">
+		
+		<!-- Google Font -->
+		<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+        
+
+        <!-- link Google captcha api -->
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        
+
+        <!-- Meta & OG Stuff -->
+        <meta property="og:image" content=""><!-- your logo -->
+        <meta property="og:title" content=""><!-- your site title -->
+        <meta property="og:url" content=""><!-- your site url -->
+        <meta property="og:site_name" content=""><!-- your site name -->
+        <meta name="keywords" content=" "><!-- keywords for your site -->
+        <meta name="description" content=""><!-- your site description -->
+
+    </head>
+    <body>
+		<header>
+			<div class="row">
+				<div class="container">
+					<div class="col-md-6 col-md-offset-3 col-sm-12 text-center">
+						<div class="well">
+							<form action="" method="POST">
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2 input-group">
+										<span class="input-group-addon">
+											<i class="fa fa-user"></i>
+										</span>
+										<input class="form-control" type="text" value="<?php echo !empty($contact_name)?$contact_name:'' ;?>" placeholder="Your Full Name" name="contact_name" required>
+									</div><!-- closes input-group -->
+								</div><!-- closes form-group -->
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2 input-group">
+										<span class="input-group-addon">
+											<i class="fa fa-envelope"></i>
+										</span>
+										<input class="form-control" type="text" value="<?php echo !empty($email)?$email:''; ?>" placeholder="Your email address" name="email" required>
+									</div><!-- closes input-group -->
+								</div><!-- closes form-group -->
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2 input-group">
+										<span class="input-group-addon">
+											<i class="fa fa-phone"></i>
+										</span>
+										<input class="form-control" type="text" value="<?php echo !empty($tel_no)?$tel_no:''; ?>" placeholder="Your phone number" name="tel_no">
+									</div><!-- closes input-group -->
+								</div><!-- closes form-group -->
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2 input-group">
+										<span class="input-group-addon">
+											<i class="fa fa-globe"></i>
+										</span>
+										<input class="form-control" type="text" value="<?php echo !empty($con_website)?$con_website:''; ?>"
+				placeholder="Your website address" name="con_website">
+									</div><!-- closes input-group -->
+								</div><!-- closes form-group -->
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2 input-group">
+										<span class="input-group-addon">
+											<i class="fa fa-pencil"></i>
+										</span>
+										<textarea class="form-control" type="text" placeholder="Your message" name="message" rows="3" cols="4" required>
+											<?php echo !empty($message)?$message:''; ?>
+										</textarea>
+									</div><!-- closes input-group -->
+								</div><!-- closes form-group -->
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2 input-group">
+										<div class="g-recaptcha" data-sitekey="6LdEBgkUAAAAAAaALRq8v-vmRW5yH3FaK5f99sT1"></div>
+									</div><!-- closes input-group -->
+								</div><!-- closes form-group -->
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2">
+										<?php if(!empty($succMsg)): ?>
+										<?php echo $succMsg; ?>
+										<?php endif; ?>
+										<?php if(!empty($errMsg)): ?>
+										<?php echo $errMsg; ?>
+										<?php endif; ?>
+									</div><!-- closes col-md-8 -->
+								</div><!-- closes form-group -->
+
+								<div class="form-group button">
+									  <button name="submit" type="submit" class="btn btn-primary btn-lg" value="Send Message">Send Message <span class="glyphicon glyphicon-send"></span></button>
+								</div><!-- closes form-group -->
+
+							</form>
+						</div><!-- closes well -->
+						
+					</div><!-- closes col-md-6 -->
+				</div><!-- closes div -->
+			</div><!-- closes div -->
+		</header>
+		
+		<footer>
+		
+		</footer>
+		
+		<!-- load JS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="assets/js/vendor/bootstrap.min.js"></script>
+        <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+	</body>
+</html>
